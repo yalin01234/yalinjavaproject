@@ -1,0 +1,34 @@
+package URLAPI;
+import java.io.IOException;
+import org.json.JSONException;
+
+
+public class Test {
+
+	public static void main(String[] args) throws IOException, JSONException {
+		
+		
+		 String jsonString = UrlAPI.getBooksByName(urlApiTest.getBaseUrl(), "Israel");
+		 //System.out.println(jsonString);
+		  	 
+		
+		 	 
+		 
+		  JsonParserUtils.convertJsonIntoNiceString(jsonString);
+		  
+		  
+		  
+		  String s1="Meir";
+		  String PathFile= "C:\\\\temp\\\\a\\\\b\\\\yalin.txt";
+		  boolean result = UrlAPI.isExsitinginFile(PathFile, s1);
+		  System.out.println("The result of the scan " + result);
+			
+		//   UrlAPI.createDirectoies("C:\\temp\\a\\b",true);
+		 //  UrlAPI.createFile("C:\\temp\\a\\b\\yalin.txt");				
+		//   UrlAPI.writeFile("C:\\temp\\a\\b\\yalin.txt",jsonString);
+				
+
+	}
+				
+	}
+
