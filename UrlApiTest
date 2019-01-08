@@ -1,0 +1,26 @@
+package URLAPI;
+
+import java.io.IOException;
+
+import Files.FileUtile;
+
+public class urlApiTest {
+
+		
+	 // String URL= "https://jsonplaceholder.typicode.com/posts/1";
+	
+	 //   String value = UrlAPI.MyGETRequest(URL);
+	    
+		private static String BASE_URL = "https://www.googleapis.com/books/v1/volumes?q=";
+		
+		public static String getBaseUrl() { 
+			return BASE_URL;
+		}
+	 
+		
+	//	UrlAPI.createDirectoies("C:\\temp\\a\\b",true);
+	//	UrlAPI.createFile("C:\\temp\\a\\b\\yalin.txt");				
+	//	UrlAPI.writeFile("C:\\temp\\a\\b\\yalin.txt",value);
+		
+		
+			}  
