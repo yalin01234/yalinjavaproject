@@ -1,0 +1,99 @@
+package URLAPI;
+
+import java.io.IOException;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+public class JsonParserUtils {
+public static void convertJsonIntoNiceString(String jsonString) throws IOException, JSONException {
+         
+		
+		 String PathFile= "C:\\\\temp\\\\a\\\\b\\\\yalin.txt";
+		 String createDirectoriesPath="C:\\\\temp\\\\a\\\\b";
+		 
+		 
+		 System.out.println("*******************************"); 
+		 JSONObject myObject = new JSONObject(jsonString);
+		 String kind  = myObject.getString("kind");
+		 System.out.println("  1 - Kind = "+kind);
+		 
+		 UrlAPI.createDirectoies(createDirectoriesPath, true);
+		 UrlAPI.createFile(PathFile);
+		 UrlAPI.writeFile(PathFile, kind);
+		 
+		 		 
+		 long totalItems = myObject.getLong("totalItems");
+		 System.out.println("  2 - totalItems = "+totalItems);
+		 
+		 String totalItems1=String.valueOf(totalItems);
+		 UrlAPI.writeFile(PathFile, totalItems1);
+		 
+		 JSONArray tenItems = myObject.getJSONArray("items");
+		 System.out.println("  3 - items = "+tenItems);
+	    
+		
+		 System.out.println("*******************************");
+		 System.out.println("Now, let's try to run on the array with loop...");
+		  for(int i=0;i<tenItems.length();i++) {
+			 System.out.println("Book #"+i);
+			 JSONObject tmp = tenItems.getJSONObject(i);
+			 JSONObject volumeInfo = tmp.getJSONObject("volumeInfo");
+			 String title = volumeInfo.getString("title");
+			 System.out.println("  title " +title);
+			 
+			 
+			 
+			 String publisher="";
+			 try { 
+				
+				 publisher = volumeInfo.getString("publisher");
+				 System.out.println("  publisher " +publisher);
+				 UrlAPI.writeFile(PathFile, publisher);
+				 
+				 String publisherDate="";
+				 publisherDate = volumeInfo.getString(publisherDate);
+				 System.out.println("  publisherDate " +publisherDate);
+				 UrlAPI.writeFile(PathFile, publisherDate);
+				 
+			
+				 
+			 }
+			 
+			 catch (Exception e) {
+				e.getMessage();
+			}
+			  try { 
+				  
+				 JSONArray authors = volumeInfo.getJSONArray("authors");
+				 String tmpAuthor="";
+				 for(int j=0;j<authors.length();j++) {
+					
+						 tmpAuthor = authors.getString(j).toString();
+						 System.out.println("Author #"+j+" "+tmpAuthor);
+						 UrlAPI.writeFile(PathFile, tmpAuthor);	
+						 //System.out.println("publisher #"+j+" "+publisher);
+					    // UrlAPI.writeFile(PathFile, publisher);		 
+					 
+				 }
+			  }
+			  catch (Exception e) {
+				e.getCause();
+			}
+			  
+		
+				 
+				 
+		 }
+		 System.out.println("*******************************");
+		 
+	            
+				 
+		
+		}
+
+	}
+	
+	
+	
