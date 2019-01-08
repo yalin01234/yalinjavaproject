@@ -1,0 +1,165 @@
+package URLAPI;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.nio.file.Paths;
+import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.util.stream.Stream;
+
+public class UrlAPI {
+	 
+		public static String MyGETRequest(String URL) throws IOException {
+
+	    URL urlForGetRequest = new URL(URL); // Fulfillment the CONST with String URL and Name 
+	    String readLine = null;
+	    HttpURLConnection conection =  (HttpURLConnection) urlForGetRequest.openConnection();    
+	    
+	    
+	    conection.setRequestMethod("GET");// Sending the GET Request 
+	    int responseCode = conection.getResponseCode();// Getting the Response Code (202,404,505 etc..)  
+	    
+	    
+	    
+	        if (responseCode == HttpURLConnection.HTTP_OK) {
+	    	
+	        BufferedReader in = new BufferedReader(new InputStreamReader(conection.getInputStream()));	                     
+	        StringBuffer response = new StringBuffer();
+	        while ((readLine = in .readLine()) != null) {
+	        response.append(readLine);
+	        } in .close();
+	        
+             
+	        // print result
+	        
+	        
+	        System.out.println("JSON String Result:");
+	        System.out.println(response.toString());
+	     
+		  //  FileWriter file = new FileWriter(path);
+		   // file.write(response.toJSONString());        
+	        
+	       
+		    
+	    } else {
+	    	
+	    	
+	        System.out.println("GET NOT WORKED");
+	    }
+	    
+	        return readLine;
+	    		
+			
+		}
+	    
+		public static boolean createDirectoies(String path, boolean createParent) throws IOException{ // the boolean is question whether to create the folder 
+			
+			File f = new File(path);
+			if (createParent) {
+				
+				return	f.mkdirs();
+		
+			}else {
+				
+				return f.mkdirs();
+			}
+			
+		}
+	
+	    public static void writeFile(String path, String value)throws IOException {
+	 	FileWriter fileWriter = new FileWriter(path,true);
+	 	//fileWriter.write(value);
+	    BufferedWriter bufferedWriter=new BufferedWriter(fileWriter);
+	    bufferedWriter.write(value);
+	    bufferedWriter.newLine();
+	    bufferedWriter.flush();
+	    bufferedWriter.close();
+	    System.out.println("Successfully Copied JSON Object to File...");
+	    
+	    }
+	    
+	   
+		public static boolean isExsitinginFile(String path,String s1) {
+	    
+	//   path.contains(s1);
+    //    if(path.contains(s1)) {
+	//    return true ;
+	    	 
+	//    }else 
+ 	// 	return false;
+	    	
+	    	
+	    	   try {
+	     
+	    	    FileReader fReader = new FileReader(path);
+	            BufferedReader fileBuff = new BufferedReader(fReader);
+	            if (fileBuff.readLine()==s1) {
+	                        
+	            return true;                           	                       
+	          
+	            }}
+	            
+	            
+	             catch (Exception e) {
+	        	
+	            System.out.println(e.getMessage());
+	            
+	        } 
+                 
+	    	   return false;
+	    }
+	    
+	         //FileOutputStream outPutStrem= new FileOutputStream (path);
+	  		//outPutStrem.write(contnent.getBytes());
+	  		//outPutStrem.close();
+	  		
+	    	    
+	    public static boolean createFile(String Path)throws IOException { 
+	    	       
+	 	   File f = new File(Path);
+	 	   return f.createNewFile();
+	    }
+	  
+     
+	    public static String getBooksByName(String url,String name) throws IOException {
+			URL urlForGetRequest = new URL(url+name);
+		    String readLine = null;
+		    HttpURLConnection conection = (HttpURLConnection) urlForGetRequest.openConnection();
+		    conection.setRequestMethod("GET");
+		    conection.setRequestProperty("userId", "a1bcdef"); // set userId its a sample here
+		    int responseCode = conection.getResponseCode();
+		    if (responseCode == HttpURLConnection.HTTP_OK) {
+		    BufferedReader in = new BufferedReader(
+		    new InputStreamReader(conection.getInputStream()));
+		    StringBuffer response = new StringBuffer();
+		    while ((readLine = in .readLine()) != null) {
+		    response.append(readLine);
+		    } in .close();
+		        // print result
+		    return response.toString();
+		        //GetAndPost.POSTRequest(response.toString());
+		    } else {
+		        System.out.println("GET NOT WORKED");
+		    }
+			return readLine;
+			
+		}	
+		
+	}
+
+
+          
+          
+          
